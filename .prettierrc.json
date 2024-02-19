@@ -1,0 +1,10 @@
+{
+    "trailingComma": "es5",
+    "endOfLine": "lf",
+    "tabWidth": 4,
+    "useTabs": false,
+    "max-len": "off",
+    "arrowParens": "always",
+    "printWidth": 150,
+    "singleAttributePerLine": true
+}

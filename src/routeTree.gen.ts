@@ -10,39 +10,59 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LandingPageImport } from './routes/LandingPage'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as LayoutImport } from "./routes/_layout";
+import { Route as AuthImport } from "./routes/_auth";
+import { Route as LayoutIndexImport } from "./routes/_layout/index";
+import { Route as AuthAuthIndexImport } from "./routes/_auth/auth/index";
 
 // Create/Update Routes
 
-const LandingPageRoute = LandingPageImport.update({
-  path: '/LandingPage',
-  getParentRoute: () => rootRoute,
-} as any)
+const LayoutRoute = LayoutImport.update({
+    id: "/_layout",
+    getParentRoute: () => rootRoute,
+} as any);
 
-const IndexRoute = IndexImport.update({
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
+const AuthRoute = AuthImport.update({
+    id: "/_auth",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const LayoutIndexRoute = LayoutIndexImport.update({
+    path: "/",
+    getParentRoute: () => LayoutRoute,
+} as any);
+
+const AuthAuthIndexRoute = AuthAuthIndexImport.update({
+    path: "/auth/",
+    getParentRoute: () => AuthRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
+declare module "@tanstack/react-router" {
+    interface FileRoutesByPath {
+        "/_auth": {
+            preLoaderRoute: typeof AuthImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/_layout": {
+            preLoaderRoute: typeof LayoutImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/_layout/": {
+            preLoaderRoute: typeof LayoutIndexImport;
+            parentRoute: typeof LayoutImport;
+        };
+        "/_auth/auth/": {
+            preLoaderRoute: typeof AuthAuthIndexImport;
+            parentRoute: typeof AuthImport;
+        };
     }
-    '/LandingPage': {
-      preLoaderRoute: typeof LandingPageImport
-      parentRoute: typeof rootRoute
-    }
-  }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute, LandingPageRoute])
+export const routeTree = rootRoute.addChildren([AuthRoute.addChildren([AuthAuthIndexRoute]), LayoutRoute.addChildren([LayoutIndexRoute])]);
 
 /* prettier-ignore-end */

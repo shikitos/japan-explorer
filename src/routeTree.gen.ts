@@ -12,10 +12,10 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
-import { Route as AuthImport } from './routes/_auth'
+import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutRegisteredImport } from './routes/_layout/_registered'
-import { Route as AuthAuthIndexImport } from './routes/_auth/auth/index'
+import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
 import { Route as LayoutRegisteredProfileIndexImport } from './routes/_layout/_registered/profile/index'
 import { Route as LayoutRegisteredDashboardIndexImport } from './routes/_layout/_registered/dashboard/index'
 
@@ -26,8 +26,8 @@ const LayoutRoute = LayoutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
+const AuthIndexRoute = AuthIndexImport.update({
+  path: '/auth/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -41,9 +41,9 @@ const LayoutRegisteredRoute = LayoutRegisteredImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const AuthAuthIndexRoute = AuthAuthIndexImport.update({
-  path: '/auth/',
-  getParentRoute: () => AuthRoute,
+const AuthLoginIndexRoute = AuthLoginIndexImport.update({
+  path: '/auth/login/',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const LayoutRegisteredProfileIndexRoute =
@@ -62,10 +62,6 @@ const LayoutRegisteredDashboardIndexRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_auth': {
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
     '/_layout': {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
@@ -78,9 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_auth/auth/': {
-      preLoaderRoute: typeof AuthAuthIndexImport
-      parentRoute: typeof AuthImport
+    '/auth/': {
+      preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/login/': {
+      preLoaderRoute: typeof AuthLoginIndexImport
+      parentRoute: typeof rootRoute
     }
     '/_layout/_registered/dashboard/': {
       preLoaderRoute: typeof LayoutRegisteredDashboardIndexImport
@@ -96,7 +96,6 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  AuthRoute.addChildren([AuthAuthIndexRoute]),
   LayoutRoute.addChildren([
     LayoutRegisteredRoute.addChildren([
       LayoutRegisteredDashboardIndexRoute,
@@ -104,6 +103,8 @@ export const routeTree = rootRoute.addChildren([
     ]),
     LayoutIndexRoute,
   ]),
+  AuthIndexRoute,
+  AuthLoginIndexRoute,
 ])
 
 /* prettier-ignore-end */

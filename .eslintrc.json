@@ -37,7 +37,6 @@
         "plugin:react-hooks/recommended",
         "airbnb-typescript",
         "eslint-config-prettier",
-        "plugin:@tanstack/eslint-plugin-query/recommended",
         "plugin:prettier/recommended"
     ],
     "plugins": ["react", "prettier", "jsx-a11y"],

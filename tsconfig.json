@@ -24,11 +24,15 @@
         "paths": {
             "@": ["/*"],
             "@assets/*": ["assets/*"],
-            "@routes/*": ["routes/*"],
-            "@widgets/*": ["widgets/*"],
-            "@features/*": ["features/*"],
-            "@entities/*": ["entities/*"],
-            "@shared/*": ["shared/*"]
+            "@pages/*": ["pages/*"],
+            "@components/*": ["components/*"],
+            "@libs/*": ["libs/*"],
+            "@hooks/*": ["hooks/*"],
+            "@providers/*": ["providers/*"],
+            "@services/*": ["services/*"],
+            "@stores/*": ["stores/*"],
+            "@utils/*": ["utils/*"],
+            "@data/*": ["data/*"]
         }
     },
     "include": ["src"],

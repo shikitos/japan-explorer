@@ -6,9 +6,9 @@ export const Route = createFileRoute("/_auth")({
 
 function PagesLayout() {
     return (
-        <div>
+        <main style={{background: "#353535"}}>
             Pages page <Link to={"../"}>Go back</Link>
             <Outlet />
-        </div>
+        </main>
     );
 }

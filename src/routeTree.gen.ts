@@ -10,59 +10,100 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as LayoutImport } from "./routes/_layout";
-import { Route as AuthImport } from "./routes/_auth";
-import { Route as LayoutIndexImport } from "./routes/_layout/index";
-import { Route as AuthAuthIndexImport } from "./routes/_auth/auth/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as LayoutImport } from './routes/_layout'
+import { Route as AuthImport } from './routes/_auth'
+import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as LayoutRegisteredImport } from './routes/_layout/_registered'
+import { Route as AuthAuthIndexImport } from './routes/_auth/auth/index'
+import { Route as LayoutRegisteredProfileIndexImport } from './routes/_layout/_registered/profile/index'
+import { Route as LayoutRegisteredDashboardIndexImport } from './routes/_layout/_registered/dashboard/index'
 
 // Create/Update Routes
 
 const LayoutRoute = LayoutImport.update({
-    id: "/_layout",
-    getParentRoute: () => rootRoute,
-} as any);
+  id: '/_layout',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AuthRoute = AuthImport.update({
-    id: "/_auth",
-    getParentRoute: () => rootRoute,
-} as any);
+  id: '/_auth',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LayoutIndexRoute = LayoutIndexImport.update({
-    path: "/",
-    getParentRoute: () => LayoutRoute,
-} as any);
+  path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutRegisteredRoute = LayoutRegisteredImport.update({
+  id: '/_registered',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 const AuthAuthIndexRoute = AuthAuthIndexImport.update({
-    path: "/auth/",
-    getParentRoute: () => AuthRoute,
-} as any);
+  path: '/auth/',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const LayoutRegisteredProfileIndexRoute =
+  LayoutRegisteredProfileIndexImport.update({
+    path: '/profile/',
+    getParentRoute: () => LayoutRegisteredRoute,
+  } as any)
+
+const LayoutRegisteredDashboardIndexRoute =
+  LayoutRegisteredDashboardIndexImport.update({
+    path: '/dashboard/',
+    getParentRoute: () => LayoutRegisteredRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
-    interface FileRoutesByPath {
-        "/_auth": {
-            preLoaderRoute: typeof AuthImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/_layout": {
-            preLoaderRoute: typeof LayoutImport;
-            parentRoute: typeof rootRoute;
-        };
-        "/_layout/": {
-            preLoaderRoute: typeof LayoutIndexImport;
-            parentRoute: typeof LayoutImport;
-        };
-        "/_auth/auth/": {
-            preLoaderRoute: typeof AuthAuthIndexImport;
-            parentRoute: typeof AuthImport;
-        };
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_auth': {
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
     }
+    '/_layout': {
+      preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/_layout/_registered': {
+      preLoaderRoute: typeof LayoutRegisteredImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/': {
+      preLoaderRoute: typeof LayoutIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_auth/auth/': {
+      preLoaderRoute: typeof AuthAuthIndexImport
+      parentRoute: typeof AuthImport
+    }
+    '/_layout/_registered/dashboard/': {
+      preLoaderRoute: typeof LayoutRegisteredDashboardIndexImport
+      parentRoute: typeof LayoutRegisteredImport
+    }
+    '/_layout/_registered/profile/': {
+      preLoaderRoute: typeof LayoutRegisteredProfileIndexImport
+      parentRoute: typeof LayoutRegisteredImport
+    }
+  }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([AuthRoute.addChildren([AuthAuthIndexRoute]), LayoutRoute.addChildren([LayoutIndexRoute])]);
+export const routeTree = rootRoute.addChildren([
+  AuthRoute.addChildren([AuthAuthIndexRoute]),
+  LayoutRoute.addChildren([
+    LayoutRegisteredRoute.addChildren([
+      LayoutRegisteredDashboardIndexRoute,
+      LayoutRegisteredProfileIndexRoute,
+    ]),
+    LayoutIndexRoute,
+  ]),
+])
 
 /* prettier-ignore-end */

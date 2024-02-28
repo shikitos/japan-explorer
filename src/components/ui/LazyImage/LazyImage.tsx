@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, memo } from "react";
-import { cn } from "@libs/mergeClasses";
+import { cn } from "libs";
 
 interface LazyImageProps extends ComponentPropsWithoutRef<"img"> {
     loading?: "lazy" | "eager";

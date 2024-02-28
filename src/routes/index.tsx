@@ -1,7 +1,6 @@
-import { AuthLayout } from "@pages/auth/layout";
-import { AuthPage } from "@pages/auth/login/page";
-import { HomeLayout } from "@pages/home/layout";
-import { HomePage } from "@pages/home/page";
+import { AuthLayout, AuthPage, RegisterPage } from "pages/auth";
+import { HomeLayout } from "pages/home/layout";
+import { HomePage } from "pages/home/page";
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 
 export const routes = createRoutesFromElements(
@@ -17,6 +16,10 @@ export const routes = createRoutesFromElements(
                 <Route
                     path="login"
                     element={<AuthPage />}
+                />
+                <Route
+                    path="register"
+                    element={<RegisterPage />}
                 />
             </Route>
         </Route>

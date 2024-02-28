@@ -1,10 +1,6 @@
 import React from "react";
-import { Button } from "@components/ui";
+import { Form } from "./sections/form";
 
 export const AuthPage: React.FC = () => {
-    return (
-        <div className="p-2 flex">
-            <Button>Auth me</Button>
-        </div>
-    );
+    return <Form />;
 };

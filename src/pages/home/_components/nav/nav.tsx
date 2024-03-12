@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import styles from "./nav.module.scss";
 
 type NavProps = {
     isOpen: boolean;
@@ -8,9 +9,9 @@ type NavProps = {
 
 export const Nav: React.FC<NavProps> = ({ isOpen }) => {
     return (
-        <motion.div className="absolute">
+        <motion.div className={styles.nav} data-open={isOpen}>
             <section></section>
-            <section>
+            <nav>
                 <ul>
                     <li>
                         <Link to="/">Tokyo</Link>
@@ -33,7 +34,7 @@ export const Nav: React.FC<NavProps> = ({ isOpen }) => {
                         </Link>
                     </li>
                 </ul>
-            </section>
+            </nav>
         </motion.div>
     );
 };

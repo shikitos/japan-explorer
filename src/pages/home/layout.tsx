@@ -1,13 +1,18 @@
-import { Button } from "components/ui";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { Burger } from "./_components";
 
 export const HomeLayout = () => {
     return (
-        <div>
-            <Link to="/auth/login">
-                <Button>Sign In</Button>
-            </Link>
+        <>
+            <header className="flex items-center justify-between p-11">
+                <img
+                    src="logo.svg"
+                    alt="Logo"
+                />
+                <Burger />
+            </header>
             <Outlet />
-        </div>
+            <footer></footer>
+        </>
     );
 };

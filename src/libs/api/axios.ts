@@ -2,13 +2,11 @@ import _axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { redirect } from "react-router-dom";
 import { refresh } from "services/auth";
-import { transformDates } from "utils/transformDates";
 
 export const axios = _axios.create({ baseURL: import.meta.env.BASE_URL, withCredentials: true });
 
 axios.interceptors.response.use(
     (response) => {
-        response.data = transformDates(response.data);
         return response;
     },
     (error) => {
@@ -16,12 +14,10 @@ axios.interceptors.response.use(
     }
 );
 
-const axiosForRefresh = _axios.create({ baseURL: "/api", withCredentials: true });
-
 // Handle expired access token
 const handleAuthError = async () => {
     try {
-        await refresh(axiosForRefresh);
+        await refresh(axios);
 
         return await Promise.resolve();
     } catch (error) {
@@ -42,4 +38,4 @@ const handleRefreshError = async () => {
 
 // Check for 401 and 403 errors, refresh token and retry the request
 createAuthRefreshInterceptor(axios, handleAuthError, { statusCodes: [401, 403] });
-createAuthRefreshInterceptor(axiosForRefresh, handleRefreshError);
+createAuthRefreshInterceptor(axios, handleRefreshError);

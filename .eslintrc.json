@@ -87,7 +87,6 @@
         "brace-style": ["error", "1tbs"],
         "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
         "@typescript-eslint/no-explicit-any": "warn",
-        "no-console": "warn",
         "no-use-before-define": "warn"
     },
     "ignorePatterns": ["lighthouse/**", "build/**"],

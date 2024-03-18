@@ -6,10 +6,5 @@
     "max-len": "off",
     "arrowParens": "always",
     "printWidth": 150,
-    "singleAttributePerLine": true,
-    "plugins": [
-        "prettier-plugin-tailwindcss"
-    ],
-    "tailwindAttributes": ["className"],
-    "pluginSearchDirs": [".src/**/*"]
+    "singleAttributePerLine": true
 }

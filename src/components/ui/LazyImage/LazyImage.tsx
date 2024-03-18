@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, memo } from "react";
-import { cn } from "libs";
 
 interface LazyImageProps extends ComponentPropsWithoutRef<"img"> {
     loading?: "lazy" | "eager";
@@ -12,7 +11,7 @@ export const LazyImage = memo(function LazyImage({ loading = "lazy", decoding = 
             {...props}
             loading={loading}
             decoding={decoding}
-            className={cn("", props.className)}
+            className={props.className}
         />
     );
 });

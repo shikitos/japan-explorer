@@ -13,6 +13,7 @@ export const HomeLayout = () => {
                 <Burger />
             </header>
             <Outlet />
+
             <footer></footer>
         </>
     );
